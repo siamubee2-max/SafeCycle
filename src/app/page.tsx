@@ -1,19 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { Shield, Lock, Plus } from 'lucide-react';
+import { Shield, Plus } from 'lucide-react';
 import { Calendar } from '@/components/Calendar';
 import { Card } from '@/components/Card';
-import { Button } from '@/components/Button';
 import { useApp } from '@/context/AppContext';
-import { TRANSLATIONS, FLOW_COLORS } from '@/lib/constants';
+import { FLOW_COLORS } from '@/lib/constants';
+import { useTranslation } from '@/lib/useTranslation';
 import EntryModal from '@/components/EntryModal';
 
 export default function HomePage() {
   const { state } = useApp();
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [showEntryModal, setShowEntryModal] = useState(false);
-  const t = TRANSLATIONS.fr;
+  const { t, formatDate } = useTranslation();
   
   const selectedEntry = selectedDate 
     ? state.entries.find(e => e.date === selectedDate) ?? undefined
@@ -41,6 +41,7 @@ export default function HomePage() {
         <button 
           onClick={handleAddEntry}
           className="w-11 h-11 rounded-full bg-[#C4A77D] flex items-center justify-center text-white hover:bg-[#B39668] transition-colors active:scale-95"
+          aria-label={t.actions.add}
         >
           <Plus size={22} />
         </button>
@@ -61,7 +62,7 @@ export default function HomePage() {
         <Card className="mt-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-medium text-[#2D2A26]">
-              {new Date(selectedDate + 'T00:00:00').toLocaleDateString('fr-FR', {
+              {formatDate(selectedDate, {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
@@ -71,7 +72,7 @@ export default function HomePage() {
               onClick={() => setShowEntryModal(true)}
               className="text-sm text-[#C4A77D] hover:underline"
             >
-              {selectedEntry ? 'Modifier' : 'Ajouter'}
+              {selectedEntry ? t.actions.edit : t.actions.add}
             </button>
           </div>
           
@@ -107,7 +108,7 @@ export default function HomePage() {
               )}
             </div>
           ) : (
-            <p className="text-sm text-[#6B6560]">Aucun suivi pour cette date</p>
+            <p className="text-sm text-[#6B6560]">{t.empty.noEntriesForDate}</p>
           )}
         </Card>
       )}

@@ -135,9 +135,23 @@ export function calculateStatistics(entries: CycleEntry[]): CycleStatistics {
 
   const symptomCounts: Record<string, Record<CyclePhaseType, number>> = {};
   
+  const sortedPeriodStarts = [...periodStarts].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+  
+  const findCycleStart = (entryDate: Date): Date => {
+    for (let i = sortedPeriodStarts.length - 1; i >= 0; i--) {
+      if (parseDate(sortedPeriodStarts[i].date) <= entryDate) {
+        return parseDate(sortedPeriodStarts[i].date);
+      }
+    }
+    return parseDate(sortedPeriodStarts[0].date);
+  };
+  
   entries.forEach(entry => {
     const date = parseDate(entry.date);
-    const phase = getCyclePhase(date, parseDate(periodStarts[periodStarts.length - 1].date), 28);
+    const cycleStart = findCycleStart(date);
+    const phase = getCyclePhase(date, cycleStart, 28);
     
     entry.symptoms.forEach(symptom => {
       if (!symptomCounts[symptom]) {

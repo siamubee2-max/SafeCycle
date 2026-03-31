@@ -5,7 +5,8 @@ import { Plus, Trash2, Calendar } from 'lucide-react';
 import { Card } from '@/components/Card';
 import { Button } from '@/components/Button';
 import { useApp } from '@/context/AppContext';
-import { TRANSLATIONS, FLOW_COLORS } from '@/lib/constants';
+import { FLOW_COLORS } from '@/lib/constants';
+import { useTranslation } from '@/lib/useTranslation';
 import { CycleEntry } from '@/lib/types';
 import EntryModal from '@/components/EntryModal';
 
@@ -13,7 +14,7 @@ export default function JournalPage() {
   const { state, deleteEntry } = useApp();
   const [selectedEntry, setSelectedEntry] = useState<CycleEntry | undefined>();
   const [showModal, setShowModal] = useState(false);
-  const t = TRANSLATIONS.fr;
+  const { t, formatDate } = useTranslation();
   
   const handleAddEntry = () => {
     setSelectedEntry(undefined);
@@ -26,17 +27,9 @@ export default function JournalPage() {
   };
   
   const handleDeleteEntry = async (id: string) => {
-    if (window.confirm('Supprimer cette entrée ?')) {
+    if (window.confirm(t.confirm.deleteEntry)) {
       await deleteEntry(id);
     }
-  };
-  
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr + 'T00:00:00').toLocaleDateString('fr-FR', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-    });
   };
   
   return (
@@ -45,12 +38,13 @@ export default function JournalPage() {
         <div>
           <h1 className="text-2xl font-serif text-[#2D2A26]">{t.tabs.journal}</h1>
           <p className="text-sm text-[#6B6560] mt-1">
-            {state.entries.length} entrée{state.entries.length !== 1 ? 's' : ''}
+            {state.entries.length} {state.entries.length !== 1 ? t.entries : t.entry}
           </p>
         </div>
         <button 
           onClick={handleAddEntry}
           className="w-11 h-11 rounded-full bg-[#C4A77D] flex items-center justify-center text-white hover:bg-[#B39668] transition-colors active:scale-95"
+          aria-label={t.actions.add}
         >
           <Plus size={22} />
         </button>
@@ -70,9 +64,9 @@ export default function JournalPage() {
           </Button>
         </Card>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3" role="list">
           {state.entries.map(entry => (
-            <Card key={entry.id} className="group">
+            <Card key={entry.id} className="group" role="listitem">
               <div className="flex items-start justify-between">
                 <div 
                   className="w-10 h-10 rounded-full flex items-center justify-center"
@@ -87,7 +81,11 @@ export default function JournalPage() {
                 <div className="flex-1 ml-3">
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-medium text-[#2D2A26]">
-                      {formatDate(entry.date)}
+                      {formatDate(entry.date, {
+                        weekday: 'short',
+                        day: 'numeric',
+                        month: 'short',
+                      })}
                     </span>
                     <span className="text-sm text-[#6B6560]">
                       {t.flow[entry.flow]}
@@ -123,8 +121,9 @@ export default function JournalPage() {
                   <button 
                     onClick={() => handleEditEntry(entry)}
                     className="p-2 hover:bg-[#EDE8E0] rounded-lg text-[#6B6560]"
+                    aria-label={t.actions.edit}
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                       <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                     </svg>
@@ -132,6 +131,7 @@ export default function JournalPage() {
                   <button 
                     onClick={() => handleDeleteEntry(entry.id)}
                     className="p-2 hover:bg-[#C17B7B]/10 rounded-lg text-[#C17B7B]"
+                    aria-label={t.actions.delete}
                   >
                     <Trash2 size={16} />
                   </button>

@@ -1,18 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { Shield, Download, Trash2, Crown, ChevronRight, Check } from 'lucide-react';
+import { Shield, Download, Trash2, Crown, Check, Globe } from 'lucide-react';
 import { Card } from '@/components/Card';
 import { Button } from '@/components/Button';
 import { useApp } from '@/context/AppContext';
-import { TRANSLATIONS } from '@/lib/constants';
+import { useTranslation } from '@/lib/useTranslation';
 import { TrackingMode } from '@/lib/types';
 import { deleteAllData, exportAllData } from '@/lib/storage';
 import { showToast } from '@/components/Toast';
 
 export default function SettingsPage() {
   const { state, setTrackingMode, updateSettings, refreshData } = useApp();
-  const t = TRANSLATIONS.fr;
+  const { t } = useTranslation();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   
@@ -33,9 +33,9 @@ export default function SettingsPage() {
       a.download = `safecycle-export-${new Date().toISOString().split('T')[0]}.json`;
       a.click();
       URL.revokeObjectURL(url);
-      showToast('Données exportées', 'success');
+      showToast(t.toast.dataExported, 'success');
     } catch (error) {
-      showToast('Erreur lors de l\'export', 'error');
+      showToast(t.toast.exportError, 'error');
     }
   };
   
@@ -45,18 +45,22 @@ export default function SettingsPage() {
       await deleteAllData();
       await refreshData();
       setShowDeleteConfirm(false);
-      showToast('Toutes les données ont été supprimées', 'success');
+      showToast(t.toast.dataDeleted, 'success');
     } catch (error) {
-      showToast('Erreur lors de la suppression', 'error');
+      showToast(t.toast.deleteError, 'error');
     } finally {
       setIsDeleting(false);
     }
   };
   
   const handlePurchase = () => {
-    showToast('Paiement non implémenté dans cette démo', 'info');
+    showToast(t.toast.purchaseNotImplemented, 'info');
   };
   
+  const handleLanguageChange = async (lang: 'fr' | 'en') => {
+    await updateSettings({ language: lang });
+  };
+
   return (
     <div className="max-w-md mx-auto px-4 py-6">
       <header className="mb-6">
@@ -70,7 +74,7 @@ export default function SettingsPage() {
               <Shield size={24} className="text-[#7D9C7D]" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-[#2D2A26]">Mode Zero-Knowledge</h3>
+              <h3 className="font-medium text-[#2D2A26]">{t.privacy.badge}</h3>
               <p className="text-sm text-[#6B6560] mt-0.5">
                 {t.privacy.description}
               </p>
@@ -80,7 +84,36 @@ export default function SettingsPage() {
         
         <Card>
           <h3 className="text-sm font-medium text-[#2D2A26] mb-3">
-            Mode de suivi
+            <Globe size={16} className="inline mr-2" />
+            {t.settings.language}
+          </h3>
+          <div className="flex gap-2">
+            <button
+              onClick={() => handleLanguageChange('fr')}
+              className={`flex-1 p-3 rounded-lg transition-colors ${
+                state.settings.language === 'fr'
+                  ? 'bg-[#C4A77D] text-white'
+                  : 'bg-[#EDE8E0] text-[#6B6560] hover:bg-[#E8D5C4]'
+              }`}
+            >
+              Français
+            </button>
+            <button
+              onClick={() => handleLanguageChange('en')}
+              className={`flex-1 p-3 rounded-lg transition-colors ${
+                state.settings.language === 'en'
+                  ? 'bg-[#C4A77D] text-white'
+                  : 'bg-[#EDE8E0] text-[#6B6560] hover:bg-[#E8D5C4]'
+              }`}
+            >
+              English
+            </button>
+          </div>
+        </Card>
+        
+        <Card>
+          <h3 className="text-sm font-medium text-[#2D2A26] mb-3">
+            {t.settings.trackingMode}
           </h3>
           <div className="space-y-2">
             {modes.map(mode => (
@@ -104,11 +137,11 @@ export default function SettingsPage() {
         
         <Card>
           <h3 className="text-sm font-medium text-[#2D2A26] mb-3">
-            Notifications
+            {t.settings.notifications}
           </h3>
           <div className="space-y-3">
             <label className="flex items-center justify-between cursor-pointer">
-              <span className="text-sm text-[#6B6560]">Rappels de suivi</span>
+              <span className="text-sm text-[#6B6560]">{t.settings.reminders}</span>
               <input
                 type="checkbox"
                 checked={state.settings.notifications.reminders}
@@ -122,7 +155,7 @@ export default function SettingsPage() {
               />
             </label>
             <label className="flex items-center justify-between cursor-pointer">
-              <span className="text-sm text-[#6B6560]">Prédictions</span>
+              <span className="text-sm text-[#6B6560]">{t.settings.predictions}</span>
               <input
                 type="checkbox"
                 checked={state.settings.notifications.predictions}
@@ -136,7 +169,7 @@ export default function SettingsPage() {
               />
             </label>
             <label className="flex items-center justify-between cursor-pointer">
-              <span className="text-sm text-[#6B6560]">Rappels médicament</span>
+              <span className="text-sm text-[#6B6560]">{t.settings.medication}</span>
               <input
                 type="checkbox"
                 checked={state.settings.notifications.medication}
@@ -190,18 +223,18 @@ export default function SettingsPage() {
             onClick={handleExport}
             className="w-full"
           >
-            Exporter mes données (JSON)
+            {t.settings.exportJson}
           </Button>
         </Card>
         
         <Card>
           <h3 className="text-sm font-medium text-[#2D2A26] mb-3">
-            Zone dangereuse
+            {t.settings.dangerZone}
           </h3>
           {showDeleteConfirm ? (
             <div className="space-y-3">
               <p className="text-sm text-[#6B6560]">
-                Cette action est irréversible. Toutes vos données seront supprimées définitivement.
+                {t.confirm.deleteAll}
               </p>
               <div className="flex gap-2">
                 <Button 
@@ -209,7 +242,7 @@ export default function SettingsPage() {
                   onClick={() => setShowDeleteConfirm(false)}
                   className="flex-1"
                 >
-                  Annuler
+                  {t.actions.cancel}
                 </Button>
                 <Button 
                   variant="primary"
@@ -238,7 +271,7 @@ export default function SettingsPage() {
             SafeCycle v1.0.0
           </p>
           <p className="text-xs text-[#6B6560] mt-1">
-            Données chiffrées avec AES-256-GCM
+            {t.settings.encryptedWith}
           </p>
         </div>
       </div>

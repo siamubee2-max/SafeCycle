@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { getDaysInMonth, getFirstDayOfMonth, isToday, isSameDay, formatDate } from '@/lib/utils';
-import { TRANSLATIONS, FLOW_COLORS } from '@/lib/constants';
-import { CycleEntry, FlowIntensity } from '@/lib/types';
+import { getDaysInMonth, getFirstDayOfMonth, isToday, formatDate } from '@/lib/utils';
+import { FLOW_COLORS } from '@/lib/constants';
+import { CycleEntry } from '@/lib/types';
 
 interface CalendarProps {
   entries: CycleEntry[];
@@ -17,13 +17,18 @@ export function Calendar({ entries, selectedDate, onSelectDate, prediction }: Ca
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
-  const t = TRANSLATIONS.fr;
   
-  const daysInMonth = getDaysInMonth(currentYear, currentMonth);
-  const firstDayOfMonth = getFirstDayOfMonth(currentYear, currentMonth);
-  const monthName = new Date(currentYear, currentMonth).toLocaleDateString('fr-FR', { month: 'long' });
+  const entryMap = useMemo(() => new Map(entries.map(e => [e.date, e])), [entries]);
+  const daysInMonth = useMemo(() => getDaysInMonth(currentYear, currentMonth), [currentYear, currentMonth]);
+  const firstDayOfMonth = useMemo(() => getFirstDayOfMonth(currentYear, currentMonth), [currentYear, currentMonth]);
+  const monthName = useMemo(() => new Date(currentYear, currentMonth).toLocaleDateString('fr-FR', { month: 'long' }), [currentYear, currentMonth]);
   
-  const entryMap = new Map(entries.map(e => [e.date, e]));
+  const blanks = useMemo(() => 
+    Array.from({ length: firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1 }, (_, i) => i),
+    [firstDayOfMonth]
+  );
+  
+  const days = useMemo(() => Array.from({ length: daysInMonth }, (_, i) => i + 1), [daysInMonth]);
   
   const goToPreviousMonth = () => {
     if (currentMonth === 0) {
@@ -48,48 +53,59 @@ export function Calendar({ entries, selectedDate, onSelectDate, prediction }: Ca
     setCurrentYear(today.getFullYear());
   };
   
-  const blanks = Array.from({ length: firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1 }, (_, i) => i);
-  
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-  
   const getDateString = (day: number) => {
     const month = String(currentMonth + 1).padStart(2, '0');
     const dayStr = String(day).padStart(2, '0');
     return `${currentYear}-${month}-${dayStr}`;
   };
   
+  const handleKeyDown = (e: React.KeyboardEvent, dateStr: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onSelectDate(dateStr);
+    }
+  };
+
   return (
     <div className="bg-white rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between mb-4">
-        <button onClick={goToPreviousMonth} className="p-2 hover:bg-[#EDE8E0] rounded-lg transition-colors">
+        <button 
+          onClick={goToPreviousMonth} 
+          className="p-2 hover:bg-[#EDE8E0] rounded-lg transition-colors"
+          aria-label="Mois précédent"
+        >
           <ChevronLeft size={20} className="text-[#6B6560]" />
         </button>
         <div className="flex items-center gap-2">
           <span className="text-lg font-semibold text-[#2D2A26] capitalize">{monthName}</span>
           <span className="text-lg text-[#6B6560]">{currentYear}</span>
         </div>
-        <button onClick={goToNextMonth} className="p-2 hover:bg-[#EDE8E0] rounded-lg transition-colors">
+        <button 
+          onClick={goToNextMonth} 
+          className="p-2 hover:bg-[#EDE8E0] rounded-lg transition-colors"
+          aria-label="Mois suivant"
+        >
           <ChevronRight size={20} className="text-[#6B6560]" />
         </button>
       </div>
       
       <div className="flex justify-end mb-2">
         <button onClick={goToToday} className="text-sm text-[#C4A77D] hover:underline">
-          {t.actions.today}
+          Aujourd&apos;hui
         </button>
       </div>
       
-      <div className="grid grid-cols-7 gap-1 mb-2">
+      <div className="grid grid-cols-7 gap-1 mb-2" role="grid" aria-label="Calendrier">
         {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, i) => (
-          <div key={i} className="text-center text-xs font-medium text-[#6B6560] py-2">
+          <div key={i} className="text-center text-xs font-medium text-[#6B6560] py-2" role="columnheader">
             {day}
           </div>
         ))}
       </div>
       
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 gap-1" role="gridbody">
         {blanks.map(i => (
-          <div key={`blank-${i}`} className="aspect-square" />
+          <div key={`blank-${i}`} className="aspect-square" role="gridcell" />
         ))}
         
         {days.map(day => {
@@ -103,6 +119,7 @@ export function Calendar({ entries, selectedDate, onSelectDate, prediction }: Ca
             <button
               key={day}
               onClick={() => onSelectDate(dateStr)}
+              onKeyDown={(e) => handleKeyDown(e, dateStr)}
               className={`aspect-square flex flex-col items-center justify-center rounded-lg text-sm transition-all relative ${
                 isSelected 
                   ? 'bg-[#C4A77D] text-white' 
@@ -110,11 +127,16 @@ export function Calendar({ entries, selectedDate, onSelectDate, prediction }: Ca
                     ? 'ring-2 ring-[#C4A77D]' 
                     : 'hover:bg-[#EDE8E0]'
               }`}
+              role="gridcell"
+              aria-selected={isSelected}
+              aria-label={`${day} ${monthName} ${currentYear}${entry ? `, flux: ${entry.flow}` : ''}`}
+              tabIndex={0}
             >
               <span className={isSelected ? 'font-semibold' : ''}>{day}</span>
               {entry && entry.flow !== 'none' && (
                 <div 
                   className="absolute bottom-1 flex gap-0.5"
+                  aria-hidden="true"
                 >
                   {['light', 'medium', 'heavy'].includes(entry.flow) && (
                     <>
@@ -152,7 +174,7 @@ export function Calendar({ entries, selectedDate, onSelectDate, prediction }: Ca
       {prediction?.nextPeriodDate && (
         <div className="mt-4 pt-4 border-t border-[#EDE8E0]">
           <p className="text-sm text-[#6B6560] text-center">
-            Prochaines règles previstas: <span className="font-medium text-[#2D2A26]">
+            Prochaines règles prevues: <span className="font-medium text-[#2D2A26]">
               {new Date(prediction.nextPeriodDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}
             </span>
           </p>

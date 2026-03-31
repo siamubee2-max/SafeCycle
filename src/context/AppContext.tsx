@@ -5,6 +5,7 @@ import { CycleEntry, UserSettings, TrackingMode } from '@/lib/types';
 import { getEntries, saveEntry, deleteEntry, getSettings, saveSettings, initDB, getOrCreateKey } from '@/lib/storage';
 import { DEFAULT_SETTINGS } from '@/lib/constants';
 import { generateId, calculatePredictions, calculateStatistics } from '@/lib/utils';
+import { logger } from '@/lib/logger';
 
 interface AppState {
   entries: CycleEntry[];
@@ -109,7 +110,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'SET_STATISTICS', payload: calculateStatistics(entries) });
         dispatch({ type: 'SET_INITIALIZED' });
       } catch (error) {
-        console.error('Failed to initialize:', error);
+        logger.error('Failed to initialize', error instanceof Error ? error.message : String(error));
         dispatch({ type: 'SET_INITIALIZED' });
       }
     };

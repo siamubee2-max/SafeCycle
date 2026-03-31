@@ -4,11 +4,11 @@ import { useMemo } from 'react';
 import { TrendingUp, Calendar, Droplets } from 'lucide-react';
 import { Card } from '@/components/Card';
 import { useApp } from '@/context/AppContext';
-import { TRANSLATIONS } from '@/lib/constants';
+import { useTranslation } from '@/lib/useTranslation';
 
 export default function StatisticsPage() {
   const { state } = useApp();
-  const t = TRANSLATIONS.fr;
+  const { t, formatDate } = useTranslation();
   
   const hasEnoughData = state.statistics.averageCycleLength > 0;
   
@@ -30,7 +30,7 @@ export default function StatisticsPage() {
       <header className="mb-6">
         <h1 className="text-2xl font-serif text-[#2D2A26]">{t.tabs.stats}</h1>
         <p className="text-sm text-[#6B6560] mt-1">
-          Vos tendances sur les 6 derniers mois
+          {t.stats.subtitle}
         </p>
       </header>
       
@@ -41,7 +41,7 @@ export default function StatisticsPage() {
             {t.stats.noData}
           </h3>
           <p className="text-sm text-[#6B6560]">
-            Ajoutez vos premiers cycles pour voir vos statistiques
+            {t.stats.noDataHint}
           </p>
         </Card>
       ) : (
@@ -77,7 +77,7 @@ export default function StatisticsPage() {
           {cycleHistoryData && cycleHistoryData.length > 1 && (
             <Card>
               <h3 className="text-sm font-medium text-[#2D2A26] mb-4">
-                Longueur des cycles
+                {t.stats.cycleLength}
               </h3>
               <div className="flex items-end justify-between h-32 gap-2">
                 {cycleHistoryData.map((cycle, index) => (
@@ -87,14 +87,14 @@ export default function StatisticsPage() {
                       style={{ height: `${Math.max(cycle.height, 10)}%` }}
                     />
                     <span className="text-xs text-[#6B6560] mt-1">
-                      {new Date(cycle.date).toLocaleDateString('fr-FR', { month: 'short' })}
+                      {formatDate(cycle.date, { month: 'short' })}
                     </span>
                   </div>
                 ))}
               </div>
               <div className="flex items-center justify-center gap-1 mt-2">
                 <span className="text-xs text-[#6B6560]">
-                  {cycleHistoryData[0].length} jours (dernier)
+                  {cycleHistoryData[0].length} {t.stats.days} ({t.stats.last})
                 </span>
               </div>
             </Card>
@@ -103,7 +103,7 @@ export default function StatisticsPage() {
           {state.statistics.symptomCorrelations.length > 0 && (
             <Card>
               <h3 className="text-sm font-medium text-[#2D2A26] mb-4">
-                Symptômes par phase
+                {t.stats.symptomsByPhase}
               </h3>
               <div className="space-y-3">
                 {state.statistics.symptomCorrelations.slice(0, 5).map((correlation, index) => (
@@ -133,13 +133,13 @@ export default function StatisticsPage() {
           {state.prediction.nextPeriodDate && (
             <Card className="bg-[#C4A77D]/10 border border-[#C4A77D]/20">
               <h3 className="text-sm font-medium text-[#2D2A26] mb-2">
-                Prochaines prévisions
+                {t.stats.predictions}
               </h3>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#6B6560]">Prochaines règles</span>
+                  <span className="text-sm text-[#6B6560]">{t.stats.nextPeriod}</span>
                   <span className="text-sm font-medium text-[#2D2A26]">
-                    {new Date(state.prediction.nextPeriodDate).toLocaleDateString('fr-FR', {
+                    {formatDate(state.prediction.nextPeriodDate, {
                       day: 'numeric',
                       month: 'long',
                     })}
@@ -147,9 +147,9 @@ export default function StatisticsPage() {
                 </div>
                 {state.prediction.ovulationDate && (
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-[#6B6560]">Ovulation estimée</span>
+                    <span className="text-sm text-[#6B6560]">{t.stats.estimatedOvulation}</span>
                     <span className="text-sm font-medium text-[#2D2A26]">
-                      {new Date(state.prediction.ovulationDate).toLocaleDateString('fr-FR', {
+                      {formatDate(state.prediction.ovulationDate, {
                         day: 'numeric',
                         month: 'long',
                       })}
@@ -157,7 +157,7 @@ export default function StatisticsPage() {
                   </div>
                 )}
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#6B6560]">Confiance</span>
+                  <span className="text-sm text-[#6B6560]">{t.stats.confidence}</span>
                   <span className="text-sm font-medium text-[#2D2A26]">
                     {Math.round(state.prediction.confidence * 100)}%
                   </span>
