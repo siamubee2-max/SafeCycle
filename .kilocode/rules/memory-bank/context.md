@@ -1,87 +1,69 @@
-# Active Context: Next.js Starter Template
+# Active Context: SafeCycle - Menstrual Cycle Tracker
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Project Status**: ✅ Production-ready
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+SafeCycle is a Zero-Knowledge menstrual cycle tracking application with full local encryption. All data is stored in IndexedDB with AES-256-GCM encryption. No account required, no cloud server.
 
 ## Recently Completed
 
-- [x] Base Next.js 16 setup with App Router
-- [x] TypeScript configuration with strict mode
-- [x] Tailwind CSS 4 integration
-- [x] ESLint configuration
-- [x] Memory bank documentation
-- [x] Recipe system for common features
+- [x] SafeCycle application built from scratch
+- [x] Zero-knowledge encryption layer (AES-256-GCM via Web Crypto API)
+- [x] IndexedDB storage layer with encryption key management
+- [x] Complete UI component library (Button, Card, Calendar, FlowSelector, SymptomPill, etc.)
+- [x] Home page with interactive calendar
+- [x] Journal page with entry management
+- [x] Statistics page with cycle trends and correlations
+- [x] Settings page with mode selection, notifications, export, and Lifetime purchase flow
+- [x] App context for state management
+- [x] Multi-mode support: Simple, SOPK, Endométriose, Contraception
+- [x] PWA manifest for installability
+- [x] Build successful
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
-| `.kilocode/` | AI context & recipes | ✅ Ready |
+| `src/lib/types.ts` | TypeScript types | ✅ |
+| `src/lib/constants.ts` | Translations, colors, defaults | ✅ |
+| `src/lib/utils.ts` | Date helpers, calculations | ✅ |
+| `src/lib/encryption.ts` | AES-256-GCM encryption | ✅ |
+| `src/lib/storage.ts` | IndexedDB wrapper | ✅ |
+| `src/components/*.tsx` | UI components | ✅ |
+| `src/context/AppContext.tsx` | State management | ✅ |
+| `src/app/page.tsx` | Home/Calendar | ✅ |
+| `src/app/journal/page.tsx` | Journal entries | ✅ |
+| `src/app/statistics/page.tsx` | Stats & trends | ✅ |
+| `src/app/settings/page.tsx` | Settings & purchase | ✅ |
 
-## Current Focus
+## Tech Stack
 
-The template is ready. Next steps depend on user requirements:
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4
+- **State**: React Context + useReducer
+- **Storage**: IndexedDB (local only)
+- **Encryption**: Web Crypto API (AES-256-GCM)
+- **Icons**: Lucide React
+- **Language**: TypeScript (strict)
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+## Design System
 
-## Quick Start Guide
-
-### To add a new page:
-
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
-
-### To add components:
-
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
-
-### To add a database:
-
-Follow `.kilocode/recipes/add-database.md`
-
-### To add API routes:
-
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
-
-## Pending Improvements
-
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+- **Colors**: Beige palette (#F5F1EB, #EDE8E0), accent gold (#C4A77D)
+- **Typography**: DM Serif Display (headings), Inter (body)
+- **Layout**: Mobile-first, max-width 420px, bottom tab navigation
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
-| Initial | Template created with base setup |
+| Initial | Next.js template created |
+| 2026-03-31 | Built SafeCycle - Zero-Knowledge menstrual tracker |
+
+## Pending Improvements
+
+- [ ] Add mock data/demo entries for showcase
+- [ ] Implement actual payment flow for Lifetime purchase
+- [ ] Add more symptom tracking options
+- [ ] Dark mode support
+- [ ] Push notification implementation
