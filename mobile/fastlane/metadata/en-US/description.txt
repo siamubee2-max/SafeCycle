@@ -1,0 +1,26 @@
+SafeCycle keeps your most intimate health data where it belongs — on your device. No account. No cloud sync. No ads. Just you and your cycle, protected by zero-knowledge encryption and powered by AI.
+
+YOUR DATA NEVER LEAVES YOUR PHONE
+SafeCycle is built on a zero-knowledge architecture. Every entry you make — symptoms, mood, energy, flow — is encrypted locally. Nothing is uploaded to our servers. Not now, not ever.
+
+AI INSIGHTS WITHOUT COMPROMISING YOUR PRIVACY
+The AI Cycle Analysis in SafeCycle sends only an anonymized summary of your recent data patterns (no name, no identifier, no location) to generate personalized wellness insights. Your identity stays yours.
+
+TRACK WHAT MATTERS
+• Log daily symptoms, mood, energy, cramps, and flow
+• Visualize your cycle phases in real time
+• Get phase-specific nutrition and movement recommendations
+• Export your data as JSON whenever you want
+
+DESIGNED FOR REAL LIFE
+• Works completely offline — no internet required for core features
+• Dark mode included
+• 7 languages: English, French, Spanish, German, Japanese, Portuguese, Italian
+• No account or sign-up required — start in 10 seconds
+
+UNLOCK LIFETIME ACCESS
+SafeCycle is free to start. Upgrade once with SafeCycle Lifetime for unlimited AI insights and all future features — forever, no subscription.
+
+──────────────────────────────
+SafeCycle is a wellness tool, not a medical device. It is not intended to diagnose, treat, or prevent any condition. Always consult a healthcare professional for medical advice.
+──────────────────────────────

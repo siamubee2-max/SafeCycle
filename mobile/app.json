@@ -1,0 +1,89 @@
+{
+  "expo": {
+    "name": "SafeCycle",
+    "slug": "safecycle",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#003634"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "store.inferencevision.safecycle",
+      "buildNumber": "3",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "SafeCycle uses Face ID to keep your health data private.",
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleLocalizations": [
+          "en",
+          "fr",
+          "es",
+          "de",
+          "ja",
+          "pt",
+          "it",
+          "en",
+          "fr",
+          "es",
+          "de",
+          "ja",
+          "pt",
+          "it"
+        ],
+        "CFBundleDevelopmentRegion": "en"
+      },
+      "privacyManifests": {
+        "NSPrivacyTracking": false,
+        "NSPrivacyTrackingDomains": [],
+        "NSPrivacyCollectedDataTypes": [],
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1",
+              "1C8F.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1",
+              "1C8F.1"
+            ]
+          }
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#003634"
+      },
+      "package": "store.inferencevision.safecycle",
+      "versionCode": 1,
+      "permissions": []
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-splash-screen"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "92a5d3d3-eb9e-489c-92dd-63db087c728c"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/92a5d3d3-eb9e-489c-92dd-63db087c728c"
+    }
+  }
+}

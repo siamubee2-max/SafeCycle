@@ -1,0 +1,26 @@
+SafeCycle garde vos données de santé les plus intimes là où elles doivent rester — sur votre téléphone. Aucun compte. Aucune synchronisation cloud. Aucune publicité. Juste vous et votre cycle, protégés par un chiffrement zéro-connaissance et assistés par l'IA.
+
+VOS DONNÉES NE QUITTENT JAMAIS VOTRE TÉLÉPHONE
+SafeCycle repose sur une architecture zéro-connaissance. Chaque entrée que vous saisissez — symptômes, humeur, énergie, flux — est chiffrée localement. Rien n'est envoyé à nos serveurs. Jamais.
+
+L'IA AU SERVICE DE VOTRE BIEN-ÊTRE, SANS COMPROMIS
+L'Analyse IA de SafeCycle envoie uniquement un résumé anonymisé de vos schémas récents (sans nom, sans identifiant, sans localisation) pour générer des insights personnalisés. Votre identité reste la vôtre.
+
+SUIVEZ CE QUI COMPTE
+• Consignez vos symptômes quotidiens, humeur, énergie, crampes et flux
+• Visualisez vos phases de cycle en temps réel
+• Recevez des recommandations nutrition et mouvement adaptées à votre phase
+• Exportez vos données en JSON quand vous le souhaitez
+
+CONÇU POUR LE QUOTIDIEN
+• Fonctionne entièrement hors ligne — aucune connexion internet requise
+• Mode sombre inclus
+• 7 langues : français, anglais, espagnol, allemand, japonais, portugais, italien
+• Aucun compte requis — démarrez en 10 secondes
+
+ACCÈS À VIE
+SafeCycle est gratuit pour commencer. Passez à SafeCycle Lifetime en un seul achat pour des insights IA illimités et toutes les futures fonctionnalités — pour toujours, sans abonnement.
+
+──────────────────────────────
+SafeCycle est un outil de bien-être, pas un dispositif médical. Il n'est pas destiné à diagnostiquer, traiter ou prévenir une quelconque condition. Consultez toujours un professionnel de santé pour tout avis médical.
+──────────────────────────────

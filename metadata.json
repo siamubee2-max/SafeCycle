@@ -1,0 +1,10 @@
+{
+  "name": "SafeCycle",
+  "description": "Private menstrual cycle tracking app with AI wellness insights. Zero-Knowledge local encryption — data never leaves the device.",
+  "requestFramePermissions": [],
+  "version": "1.0.0",
+  "bundleId": "store.inferencevision.safecycle",
+  "appStoreUrl": "https://apps.apple.com/app/safecycle/id6761807718",
+  "privacyPolicyUrl": "https://inferencevision.store/safecycle/privacy",
+  "supportUrl": "https://inferencevision.store/safecycle/faq"
+}

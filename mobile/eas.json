@@ -1,0 +1,45 @@
+{
+  "cli": {
+    "version": ">= 7.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      },
+      "channel": "preview"
+    },
+    "production": {
+      "distribution": "store",
+      "channel": "production",
+      "ios": {
+        "image": "latest"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "chrweber@skynet.be",
+        "ascAppId": "6761807718",
+        "appleTeamId": "SPLML3CN76"
+      },
+      "android": {
+        "track": "internal",
+        "releaseStatus": "draft",
+        "serviceAccountKeyPath": "./google-service-account.json"
+      }
+    }
+  }
+}

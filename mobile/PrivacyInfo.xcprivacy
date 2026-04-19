@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<\!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<\!--
+  SafeCycle — PrivacyInfo.xcprivacy
+  Requis par Apple depuis mai 2024 (WWDC23 — Privacy Manifests).
+  Décrit les APIs système accédées par l'app et ses dépendances.
+
+  Dépendances qui accèdent aux APIs déclarées :
+    • react-native-purchases (RevenueCat 9.x) -> NSUserDefaults (raison CA92.1)
+    • react-native-webview -> NSUserDefaults pour cookies/sessions (raison 1C8F.1)
+    • expo-splash-screen  -> NSUserDefaults pour préférences (raison 1C8F.1)
+-->
+<dict>
+
+  <\!-- Tracking cross-app : AUCUN -->
+  <key>NSPrivacyTracking</key>
+  <false/>
+
+  <\!-- Domaines de tracking : AUCUN (pas de tracking publicitaire) -->
+  <key>NSPrivacyTrackingDomains</key>
+  <array/>
+
+  <\!-- Données collectées : AUCUNE collecte directe via APIs système -->
+  <key>NSPrivacyCollectedDataTypes</key>
+  <array/>
+
+  <\!-- APIs système accédées -->
+  <key>NSPrivacyAccessedAPITypes</key>
+  <array>
+
+    <\!--
+      NSUserDefaults — utilisé par :
+        • RevenueCat (react-native-purchases) : stockage de l'état d'achat lifetime
+        • react-native-webview               : gestion des cookies et sessions WebView
+        • expo-splash-screen                 : préférences d'affichage
+
+      Raisons déclarées :
+        CA92.1 — Accès aux clés qui peuvent impacter la vie privée de l'utilisateur
+                 (RevenueCat stocke l'identifiant acheteur)
+        1C8F.1 — Accès aux données propres à l'app dans les defaults
+                 (WebView + Expo)
+    -->
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>CA92.1</string>
+        <string>1C8F.1</string>
+      </array>
+    </dict>
+
+  </array>
+
+</dict>
+</plist>

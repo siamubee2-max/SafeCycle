@@ -1,0 +1,1 @@
+periodo,menstrual,fertilidad,ovulación,salud,síntoma,humor,diario,bienestar,spm,flujo,calendario

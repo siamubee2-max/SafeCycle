@@ -1,41 +1,60 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
 
-# testing
-/coverage
+# Expo / React Native
+.expo/
+mobile/.expo/
+mobile/ios/Pods/
+mobile/ios/build/
+mobile/android/build/
+mobile/android/.gradle/
+*.jks
+*.p12
+*.keystore
 
-# next.js
-/.next/
-/out/
+# Environment variables
+.env
+.env.local
+.env.*.local
+google-service-account.json
 
-# production
-/build
+# Secrets / certificates
+*.p8
+*.mobileprovision
+*.provisionprofile
 
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# OS
+.DS_Store
+Thumbs.db
 
-# vercel
-.vercel
+# IDE
+.vscode/
+.idea/
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Claude / Cowork settings
+.claude/
+.playwright-mcp/
+
+# Screenshots (NutriSnap)
+NutriSnap_*/
+nutrisnap-*/
+
+# Claude / Cowork internals
+.claude/
+.playwright-mcp/
+
+# NutriSnap screenshots (wrong project)
+NutriSnap_*/
+nutrisnap-*/

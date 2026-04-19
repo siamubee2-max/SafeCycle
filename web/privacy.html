@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de Confidentialité — SafeCycle</title>
+  <meta name="description" content="Politique de confidentialité de SafeCycle. Découvrez comment nous protégeons vos données de santé grâce au chiffrement local Zero-Knowledge.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #003634;
+      --primary-light: #1b4d4b;
+      --accent: #baece9;
+      --bg: #fbf9f6;
+      --surface: #f5f3f0;
+      --fg: #1b1c1a;
+      --muted: #707978;
+      --border: #c0c8c7;
+      --secondary: #645881;
+      --error: #ba1a1a;
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(251,249,246,0.88); backdrop-filter: blur(20px);
+      z-index: 100; border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 820px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-weight: 800; font-size: 17px; color: var(--primary); display: flex; align-items: center; gap: 8px; font-family: 'Noto Serif', serif; letter-spacing: -0.3px; }
+    .nav-links a { color: var(--muted); font-size: 14px; font-weight: 500; margin-left: 24px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); text-decoration: none; }
+
+    .content { max-width: 820px; margin: 0 auto; padding: 110px 24px 80px; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--primary); font-size: 14px; font-weight: 600; margin-bottom: 32px; opacity: 0.8; }
+    .back-link:hover { opacity: 1; text-decoration: none; }
+
+    .hero { margin-bottom: 48px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--primary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; padding: 5px 12px; border-radius: 100px; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Noto Serif', serif; font-size: 34px; font-weight: 600; letter-spacing: -0.5px; color: var(--primary); margin-bottom: 6px; }
+    .hero .date { font-size: 13px; color: var(--muted); margin-bottom: 0; }
+
+    /* INTRO ZK BOX */
+    .zk-box {
+      background: var(--primary); color: var(--accent);
+      border-radius: 20px; padding: 28px 32px; margin-bottom: 40px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .zk-box .icon { font-size: 28px; flex-shrink: 0; }
+    .zk-box h2 { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .zk-box p { font-size: 14px; color: rgba(186,236,233,0.8); line-height: 1.6; }
+
+    /* SECTIONS */
+    .section { margin-bottom: 36px; border-bottom: 1px solid var(--border); padding-bottom: 36px; }
+    .section:last-of-type { border-bottom: none; }
+    .section h2 { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .section h3 { font-size: 14px; font-weight: 700; color: var(--fg); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .section p { color: var(--muted); font-size: 14px; margin-bottom: 10px; line-height: 1.75; }
+    .section ul { color: var(--muted); font-size: 14px; padding-left: 1.2rem; margin-bottom: 10px; }
+    .section ul li { margin-bottom: 7px; line-height: 1.6; }
+    .section ul li strong { color: var(--fg); }
+    .section a { color: var(--primary); font-weight: 500; }
+
+    .highlight-box {
+      background: rgba(186,236,233,0.18);
+      border: 1px solid rgba(186,236,233,0.5);
+      border-radius: 12px; padding: 16px 20px; margin: 16px 0;
+    }
+    .highlight-box strong { color: var(--primary); }
+    .highlight-box p { margin: 0; color: var(--primary-light); }
+
+    .no-collect {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px; margin: 12px 0;
+    }
+    .no-collect strong { color: var(--error); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 8px; }
+    .no-collect ul { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* CONTACT BOX */
+    .contact-box { background: var(--primary); border-radius: 20px; padding: 36px 32px; margin-top: 48px; }
+    .contact-box h2 { font-family: 'Noto Serif', serif; font-size: 20px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+    .contact-box p { font-size: 14px; color: rgba(186,236,233,0.7); margin-bottom: 0; }
+    .contact-box .contact-info { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .contact-box .contact-info a { color: var(--accent); font-weight: 600; font-size: 14px; }
+
+    footer { background: var(--fg); color: rgba(240,235,227,0.5); padding: 28px 24px; text-align: center; font-size: 13px; margin-top: 40px; }
+    footer a { color: rgba(186,236,233,0.7); }
+    footer a:hover { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 26px; }
+      .nav-links { display: none; }
+      .content { padding: 90px 18px 60px; }
+      .zk-box { flex-direction: column; gap: 10px; padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/safecycle" class="nav-brand">
+      🛡️ SafeCycle
+    </a>
+    <div class="nav-links">
+      <a href="/safecycle">Accueil</a>
+      <a href="/safecycle/faq">FAQ</a>
+      <a href="/safecycle/privacy">Confidentialité</a>
+      <a href="https://inferencevision.store">Inference Vision</a>
+    </div>
+  </div>
+</nav>
+
+<div class="content">
+  <a href="/safecycle" class="back-link">← Retour à SafeCycle</a>
+
+  <div class="hero">
+    <div class="hero-badge">🔒 AES-256-GCM · Zero-Knowledge</div>
+    <h1>Politique de Confidentialité</h1>
+    <p class="date">Dernière mise à jour : 1er avril 2026</p>
+  </div>
+
+  <div class="zk-box">
+    <div class="icon">🛡️</div>
+    <div>
+      <h2>Principe fondateur : Zero-Knowledge</h2>
+      <p>SafeCycle a été conçu avec un postulat clair : nous ne devrions jamais avoir accès à vos données de santé. Tous vos journaux, symptômes et informations médicales sont chiffrés et stockés <strong>uniquement sur votre appareil</strong>. Nous ne sommes pas en mesure de les lire, les vendre, ni les partager — physiquement impossible.</p>
+    </div>
+  </div>
+
+  <!-- 1. INTRODUCTION -->
+  <div class="section">
+    <h2>1. Introduction</h2>
+    <p>SafeCycle (« l'Application ») est éditée par <strong>Inference Vision</strong>, studio indépendant fondé par Christophe G. Weber. Cette politique de confidentialité décrit les pratiques de traitement des données liées à l'utilisation de l'Application sur iOS, Android et sur le web.</p>
+    <p>En utilisant SafeCycle, vous acceptez les pratiques décrites ci-dessous. Si vous n'êtes pas d'accord, veuillez ne pas utiliser l'Application.</p>
+    <p>Cette politique s'applique à toutes les versions de SafeCycle (mobile et web progressive).</p>
+  </div>
+
+  <!-- 2. DONNÉES COLLECTÉES -->
+  <div class="section">
+    <h2>2. Données que nous traitons</h2>
+
+    <h3>2.1 Données stockées localement (sur votre appareil)</h3>
+    <p>L'intégralité des données suivantes est stockée <strong>exclusivement sur votre appareil</strong>, chiffrée avec AES-256-GCM. SafeCycle n'y a jamais accès :</p>
+    <ul>
+      <li><strong>Journal quotidien :</strong> niveau de crampes, lombalgie, type de flux, niveau d'énergie, humeur</li>
+      <li><strong>Exercice :</strong> type, durée, intensité</li>
+      <li><strong>Médicaments :</strong> nom, dosage, heure de prise, rappels</li>
+      <li><strong>Symptômes :</strong> liste, intensité, notes personnelles</li>
+      <li><strong>Prompts IA :</strong> invites de réflexion quotidiennes mises en cache localement</li>
+      <li><strong>Préférences :</strong> langue, mode sombre, mode de suivi (Simple / SOPK / Endométriose / Contraception)</li>
+    </ul>
+
+    <h3>2.2 Données transmises à des services tiers (optionnel)</h3>
+    <p>Uniquement si la fonctionnalité IA est activée, un <strong>résumé anonymisé</strong> de vos 14 dernières entrées (humeur, énergie, douleur, flux — sans aucune donnée identifiante) est envoyé chiffré (TLS 1.3) à l'API Google Gemini pour générer des insights personnalisés. Ce résumé ne contient ni nom, ni email, ni identifiant quelconque.</p>
+
+    <h3>2.3 Données collectées automatiquement</h3>
+    <ul>
+      <li><strong>Métriques de performance anonymes</strong> via Expo / EAS (crashs, temps de chargement) — aucune donnée de santé n'est incluse.</li>
+    </ul>
+
+    <div class="no-collect">
+      <strong>❌ Données que nous ne collectons absolument pas</strong>
+      <ul>
+        <li>Nom, prénom, adresse email (sauf si vous nous contactez)</li>
+        <li>Numéro de téléphone</li>
+        <li>Données de paiement (gérées exclusivement par Apple / Google)</li>
+        <li>Contacts, photos personnelles, galerie photo</li>
+        <li>Historique de navigation</li>
+        <li>Identifiants publicitaires (IDFA / GAID)</li>
+        <li>Localisation géographique</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. UTILISATION DES DONNÉES -->
+  <div class="section">
+    <h2>3. Finalités du traitement</h2>
+    <p>Les données décrites au point 2.2 (résumé anonymisé envoyé à l'IA) sont utilisées exclusivement pour :</p>
+    <ul>
+      <li>Générer des invites de réflexion personnalisées adaptées à votre phase du cycle</li>
+      <li>Produire une analyse santé synthétique et des recommandations de bien-être</li>
+      <li>Améliorer la stabilité technique de l'Application (métriques Expo anonymes)</li>
+    </ul>
+    <p>Nous n'utilisons jamais vos données à des fins publicitaires, de profilage commercial, ou de vente de données.</p>
+  </div>
+
+  <!-- 4. SERVICES TIERS -->
+  <div class="section">
+    <h2>4. Services tiers</h2>
+    <ul>
+      <li><strong>Google Gemini API</strong> (<a href="https://ai.google.dev">ai.google.dev</a>) — Analyse IA optionnelle. Soumis à la <a href="https://policies.google.com/privacy">politique de confidentialité Google</a>. Aucune donnée identifiante n'est transmise.</li>
+      <li><strong>Expo / EAS</strong> (<a href="https://expo.dev">expo.dev</a>) — Infrastructure de build et distribution. Collecte des métriques de performance anonymes. Soumis à la <a href="https://expo.dev/privacy">politique de confidentialité d'Expo</a>.</li>
+      <li><strong>Apple App Store / Google Play Store</strong> — Gèrent les achats in-app (SafeCycle Lifetime). Soumis à leurs propres politiques de confidentialité.</li>
+      <li><strong>Google Fonts</strong> — Chargement de polices de caractères (Noto Serif, Manrope). Peut collecter l'adresse IP de votre appareil selon la <a href="https://policies.google.com/privacy">politique Google</a>.</li>
+    </ul>
+  </div>
+
+  <!-- 5. SÉCURITÉ -->
+  <div class="section">
+    <h2>5. Sécurité des données</h2>
+    <div class="highlight-box">
+      <p><strong>Chiffrement local AES-256-GCM :</strong> une clé de chiffrement unique est générée sur votre appareil lors de la première ouverture. Ni Inference Vision ni aucun tiers ne peuvent déchiffrer vos données sans cette clé.</p>
+    </div>
+    <ul>
+      <li>Toutes les données locales sont stockées dans le sandbox sécurisé de l'application</li>
+      <li>Les transmissions réseau utilisent TLS 1.3 (HTTPS)</li>
+      <li>Aucune base de données externe ne contient vos données personnelles de santé</li>
+      <li>Aucun cookie de tracking n'est utilisé dans l'Application</li>
+    </ul>
+    <p>La clé de chiffrement locale n'est pas sauvegardée par Inference Vision. En cas de perte (désinstallation, réinitialisation d'appareil), les données ne sont pas récupérables — nous recommandons d'exporter régulièrement votre journal en JSON via les Paramètres.</p>
+  </div>
+
+  <!-- 6. DROITS RGPD -->
+  <div class="section">
+    <h2>6. Vos droits (RGPD)</h2>
+    <p>Conformément au Règlement Général sur la Protection des Données (UE) 2016/679, vous disposez des droits suivants :</p>
+    <ul>
+      <li><strong>Droit d'accès :</strong> vous pouvez consulter toutes vos données via la fonction "Exporter mes données" dans les Paramètres de l'Application.</li>
+      <li><strong>Droit de rectification :</strong> vos données peuvent être modifiées directement dans l'Application à tout moment.</li>
+      <li><strong>Droit à l'effacement :</strong> via Paramètres → Zone dangereuse → Supprimer toutes les données, ou en désinstallant l'Application.</li>
+      <li><strong>Droit à la portabilité :</strong> export JSON disponible dans les Paramètres.</li>
+      <li><strong>Droit d'opposition :</strong> vous pouvez désactiver la fonctionnalité IA dans les Paramètres pour qu'aucune donnée ne soit jamais transmise à des tiers.</li>
+    </ul>
+    <p>Pour exercer ces droits ou pour toute question : <a href="mailto:inferencevision@inferencevision.store">inferencevision@inferencevision.store</a></p>
+  </div>
+
+  <!-- 7. CONSERVATION -->
+  <div class="section">
+    <h2>7. Conservation des données</h2>
+    <p>Les données stockées localement persistent tant que l'application est installée sur votre appareil. La désinstallation de SafeCycle supprime automatiquement l'intégralité des données locales (journal, médicaments, symptômes, préférences, cache IA).</p>
+    <p>Les métriques de performance anonymes collectées par Expo sont conservées selon leur propre politique (généralement 90 jours).</p>
+  </div>
+
+  <!-- 8. ENFANTS -->
+  <div class="section">
+    <h2>8. Utilisateurs mineurs</h2>
+    <p>SafeCycle s'adresse aux personnes de 16 ans et plus. Nous ne collectons pas sciemment de données personnelles concernant des enfants de moins de 16 ans. Si vous êtes parent ou tuteur et pensez que votre enfant a utilisé l'Application, contactez-nous à <a href="mailto:inferencevision@inferencevision.store">inferencevision@inferencevision.store</a> pour suppression immédiate des données éventuelles.</p>
+  </div>
+
+  <!-- 9. MODIFICATIONS -->
+  <div class="section">
+    <h2>9. Modifications de cette politique</h2>
+    <p>Nous pouvons mettre à jour cette politique de confidentialité. En cas de modification substantielle affectant vos droits, une notification sera affichée à l'ouverture de l'Application. La date de dernière mise à jour est toujours indiquée en haut de ce document.</p>
+    <p>L'utilisation continue de SafeCycle après publication d'une mise à jour vaut acceptation de la nouvelle politique.</p>
+  </div>
+
+  <!-- 10. CONTACT -->
+  <div class="contact-box">
+    <h2>10. Contact & responsable du traitement</h2>
+    <p>Pour toute question relative à cette politique ou à la protection de vos données :</p>
+    <div class="contact-info">
+      <span style="color:rgba(186,236,233,0.9); font-size:15px; font-weight:600;">Inference Vision</span>
+      <span style="color:rgba(186,236,233,0.6); font-size:13px;">Responsable : Christophe G. Weber</span>
+      <a href="mailto:inferencevision@inferencevision.store">📧 inferencevision@inferencevision.store</a>
+      <a href="https://inferencevision.store">🌐 inferencevision.store</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 SafeCycle — Un projet <a href="https://inferencevision.store">Inference Vision</a> par Christophe G. Weber. Tous droits réservés. &nbsp;|&nbsp; <a href="/safecycle/faq">FAQ</a> · <a href="/safecycle/privacy">Confidentialité</a></p>
+</footer>
+
+</body>
+</html>
